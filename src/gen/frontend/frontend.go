@@ -70,25 +70,30 @@ func repickRace() {
 }
 
 const htmlTemplate = `
-<pre>
-{{.Name}} {{.Surname}}, a {{.Sex}} {{.Race.Name}} (<a href="#" onclick="repickRace()">Repick Race</a>) from {{.Nationality}} (<a href="#" onclick="repickNationality()">Repick Nationality</a>)
-Father: {{.Father}} <a href="#" onclick="repickDad()">Repick Dad</a>
-Mother: {{.Mother}} <a href="#" onclick="repickMum()">Repick Mum</a>
-
+<p>{{.Name}} {{.Surname}}, a {{.Sex}} {{.Race.Name}} (<a href="#" onclick="repickRace()">Repick Race</a>) from {{.Nationality}} (<a href="#" onclick="repickNationality()">Repick Nationality</a>)</p>
+<p>Father: {{.Father}} <a href="#" onclick="repickDad()">Repick Dad</a></p>
+<p>Mother: {{.Mother}} <a href="#" onclick="repickMum()">Repick Mum</a></p>
+<p>
 After your birth, you were cared for by {{.Infancy.Carer}} {{.Infancy.Location}}.
+</p>
+<p>
 As you grew older you spent lots of time {{ .Childhood.Activity }} {{.Childhood.Location}}.
-
+</p>
+<p>
 Stat rolls:
-  Strength: {{.Stats.Strength}}
-  Dexterity: {{.Stats.Dexterity}}
-  Constitution: {{.Stats.Constitution}}
-  Wisdom: {{.Stats.Wisdom}}
-  Intelligence: {{.Stats.Intelligence}}
-  Charisma: {{.Stats.Charisma}}
-
-You have {{.Stats.BaseFatePoints}} fate points to spend.
+<ul>
+  <li>Strength: {{.Stats.Strength}}</li>
+  <li>Dexterity: {{.Stats.Dexterity}}</li>
+  <li>Constitution: {{.Stats.Constitution}}</li>
+  <li>Wisdom: {{.Stats.Wisdom}}</li>
+  <li>Intelligence: {{.Stats.Intelligence}}</li>
+  <li>Charisma: {{.Stats.Charisma}}</li>
+</ul>
+</p>
+<p>
+You have {{.Stats.BaseFatePoints}} fate points to spend.<br/>
 You have spent {{ .SpentFatePoints }} of them.
-</pre>
+</p>
 `
 
 func runTemplate(t *template.Template, data interface{}) (string, error) {
