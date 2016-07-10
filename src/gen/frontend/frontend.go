@@ -12,12 +12,13 @@ import (
 	"github.com/gopherjs/gopherjs/js"
 )
 
-var character = types.Character{}.FillInTheBlanks()
+var character = types.Character{}
 var tmpl = template.Must(template.New("main").Parse(htmlTemplate))
 
 func main() {
 	seed := time.Now().Unix()
 	rand.Seed(seed)
+	character = character.FillInTheBlanks()
 	js.Global.Set("repickNationality", repickNationality)
 	js.Global.Set("repickMum", repickMum)
 	js.Global.Set("repickDad", repickDad)
