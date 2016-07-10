@@ -36,3 +36,12 @@ serve: bin/server
 doc:
 	godoc -http :6060
 
+deploy:
+	git checkout gh-pages
+	./bin/gopherjs build gen/frontend
+	cp src/gen/frontend/index.html .
+	git add frontend.js
+	git add index.html
+	git commit -m "Deploying"
+	git push -f origin HEAD:gh-pages
+

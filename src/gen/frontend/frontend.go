@@ -30,7 +30,7 @@ func rerender() {
 	body.SetInnerHTML("")
 	str, err := runTemplate(tmpl, character)
 	if err != nil {
-		log(err)
+		log(err.Error())
 	} else {
 		body.SetInnerHTML(str)
 	}
@@ -74,8 +74,8 @@ const htmlTemplate = `
 Father: {{.Father}} <a href="#" onclick="repickDad()">Repick Dad</a>
 Mother: {{.Mother}} <a href="#" onclick="repickMum()">Repick Mum</a>
 
-After your birth, you were cared for by {{.Infancy.Carer}} {{.Infancy.Location}}
-
+After your birth, you were cared for by {{.Infancy.Carer}} {{.Infancy.Location}}.
+As you grew older you spent lots of time {{ .Childhood.Activity }} {{.Childhood.Location}}.
 
 Stat rolls:
   Strength: {{.Stats.Strength}}

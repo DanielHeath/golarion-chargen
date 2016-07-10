@@ -17,6 +17,7 @@ type Character struct {
 	Stats           Stats
 	SpentFatePoints int
 	Infancy         Infancy
+	Childhood       Childhood
 }
 
 func (c Character) String() string {
@@ -89,6 +90,7 @@ func (c Character) FillInTheBlanks() Character {
 	}
 	c.Stats = c.Stats.FillInTheBlanks()
 	c.Infancy = c.Infancy.FillInTheBlanks()
+	c.Childhood = c.Childhood.FillInTheBlanks()
 	return c
 }
 
