@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Character generator</title>
+    <style>
+      .delete-button img {
+        width: 1em;
+        height: 1em;
+      }
+    </style>
+</head>
+<body lang="en">
+<section id="main">
+  <div>
+    <div id="app"></div>
+    <form action="#" id="form">
+      <pre id="json">
+
+      </pre>
+      <input type="submit" />
+    </form>
+
+    <script src="/vendor/react-15.2.1.js"></script>
+    <script src="/vendor/react-dom-15.2.1.js"></script>
+    <script src="/vendor/babel-browser.min.js"></script>
+    <script type="text/babel" src="/app.js"></script>
+    <script>
+
+      // var pre = document.getElementById("json")
+      // var form = document.getElementById("form")
+
+      // var onFetch = (promise) => {
+      //   promise.then(
+      //     (resp) => resp.json()
+      //   ).then((json) =>
+      //     pre.innerText = JSON.stringify(json, null, 4)
+      //   )
+      // }
+      // onFetch(fetch("/character.json"))
+
+      // form.onsubmit = () => {
+      //   var char = JSON.parse(pre.innerText)
+      //   console.log(delete char.Father)
+
+      //   onFetch(fetch(
+      //     "/character.json",
+      //     {method: "POST", body: JSON.stringify(char)}
+      //   ));
+      //   return false;
+      // }
+
+    </script>
+  </div>
+</section>
+</body>

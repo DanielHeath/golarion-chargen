@@ -1,0 +1,18 @@
+{
+  "Name": "Kathleen",
+  "Surname": "Blair",
+  "Race": "Half-orc",
+  "Sex": "Female",
+  "Nationality": "Osirion",
+  "Mother": {
+    "Name": "Beulah",
+    "Surname": "Murphy",
+    "Race": "Human"
+  },
+  "Stats": {
+    "Strength": 9,
+    "Constitution": 13,
+    "Intelligence": 9,
+    "Charisma": 14
+  }
+}
