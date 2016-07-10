@@ -41,7 +41,7 @@ deploy:
 	./bin/gopherjs build gen/frontend
 	cp src/gen/frontend/index.html .
 	git add frontend.js
+	git add frontend.js.map
 	git add index.html
 	git commit -m "Deploying"
 	git push -f origin HEAD:gh-pages
-
