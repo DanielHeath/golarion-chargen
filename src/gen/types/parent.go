@@ -51,3 +51,52 @@ func RandomDad(race Race) Parent {
 		Nationality: RandomNationality(),
 	}
 }
+
+func (p Parent) FillInTheBlanks(other Parent, child Character) Parent {
+	if p.Race.Name == "" {
+		p.Race = child.Race
+		if child.Race.Halfbreed() && !other.Race.Halfbreed() {
+			if other.Race.Name == child.Race.Mix1 {
+				p.Race = GetRace(SampleStr(child.Race.Name, child.Race.Mix2))
+			} else {
+				p.Race = GetRace(SampleStr(child.Race.Name, child.Race.Mix1))
+			}
+		}
+	}
+
+	if p.Name == "" {
+		p.Name = p.Race.RandomMaleName()
+	}
+
+	if p.Surname == "" {
+		p.Surname = p.Race.RandomSurname()
+		if child.Surname != "" && other.Surname != child.Surname {
+			p.Surname = SampleStr(
+				p.Surname,
+				child.Surname,
+				child.Surname,
+				child.Surname,
+			)
+		}
+	}
+
+	if p.Occupation == "" {
+		p.Occupation = RandomOccupation()
+	}
+
+	if p.Nationality == "" {
+		p.Nationality = RandomNationality()
+		// 2/3 of couples come from the same place
+		// so a random dad probably comes from the same
+		// place as mum does
+		if other.Nationality != "" {
+			p.Nationality = SampleStr(
+				p.Nationality,
+				other.Nationality,
+				other.Nationality,
+			)
+		}
+	}
+
+	return p
+}

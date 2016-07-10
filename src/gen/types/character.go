@@ -5,65 +5,21 @@ import (
 	"math/rand"
 )
 
-type Stats struct {
-	Strength     uint
-	Dexterity    uint
-	Constitution uint
-	Wisdom       uint
-	Intelligence uint
-	Charisma     uint
-}
-
-func (s Stats) String() string {
-	return fmt.Sprintf(`Strength: %d
-Dexterity: %d
-Constitution: %d
-Wisdom: %d
-Intelligence: %d
-Charisma: %d
-Fate points: %d
-	`,
-		s.Strength,
-		s.Dexterity,
-		s.Constitution,
-		s.Wisdom,
-		s.Intelligence,
-		s.Charisma,
-		s.BaseFatePoints(),
-	)
-}
-
-func rollStat() uint {
-	return uint(9 + rand.Intn(6))
-}
-
+// Character describes a generated characer
 type Character struct {
-	Name        string
-	Surname     string
-	Race        Race
-	Sex         string
-	Nationality string
-	Mother      Parent
-	Father      Parent
-	Stats       Stats
-}
-
-func (s Stats) BaseFatePoints() uint {
-	// max stats - current stats
-	return (14 * 6) - s.Total()
-}
-
-func (s Stats) Total() uint {
-	return s.Strength +
-		s.Dexterity +
-		s.Constitution +
-		s.Wisdom +
-		s.Intelligence +
-		s.Charisma
+	Name            string
+	Surname         string
+	Race            Race
+	Sex             string
+	Nationality     string
+	Mother          Parent
+	Father          Parent
+	Stats           Stats
+	SpentFatePoints int
+	Infancy         Infancy
 }
 
 func (c Character) String() string {
-	// todo print stats and fatepoints
 	return fmt.Sprintf(`*****************
 %s %s, a %s from %s.
 Born to father %s
@@ -81,24 +37,12 @@ Stats:
 	)
 }
 
+// NewCharacter generates a random character with stats filled in
 func NewCharacter() Character {
 	return Character{}.FillInTheBlanks()
 }
 
-func (c Character) RepickDad() Character {
-	c.Father = Parent{}
-	c.Surname = ""
-	c.Nationality = ""
-	return c.FillInTheBlanks()
-}
-
-func (c Character) RepickMum() Character {
-	c.Mother = Parent{}
-	c.Surname = ""
-	c.Nationality = ""
-	return c.FillInTheBlanks()
-}
-
+// FillInTheBlanks sets all unset properties to valid values
 func (c Character) FillInTheBlanks() Character {
 	if c.Sex == "" {
 		c.Sex = SampleStr("Male", "Female")
@@ -108,14 +52,6 @@ func (c Character) FillInTheBlanks() Character {
 		c.Race = RandomRace()
 	}
 
-	if c.Race.Halfbreed() {
-		c.Race = GetRaceMatchingParents(
-			c.Race.Name,
-			c.Father.Race.Name,
-			c.Mother.Race.Name,
-		)
-	}
-
 	if c.Name == "" {
 		c.Name = c.Race.RandomFemaleName()
 		if c.Sex == "Male" {
@@ -123,55 +59,8 @@ func (c Character) FillInTheBlanks() Character {
 		}
 	}
 
-	if (c.Mother == Parent{}) {
-		c.Mother = RandomMum(c.Race.Mother())
-
-		if c.Surname != "" {
-			c.Mother.Surname = SampleStr(
-				c.Mother.Surname,
-				c.Surname,
-				c.Surname,
-				c.Surname,
-			)
-		}
-
-		if (c.Father != Parent{}) {
-			// Dad was set but mum wasnt.
-			// 2/3 of couples come from the same place, so
-			// Mum probably comes from where Dad comes from
-			c.Mother.Nationality = SampleStr(
-				c.Father.Nationality,
-				c.Father.Nationality,
-				c.Mother.Nationality,
-			)
-		}
-	}
-
-	if (c.Father == Parent{}) {
-		c.Father = RandomDad(c.Race.Father())
-		if c.Race.Halfbreed() && !c.Mother.Race.Halfbreed() {
-			// dads race needs to be the other half!
-
-		}
-
-		if c.Surname != "" && c.Mother.Surname != c.Surname {
-			c.Father.Surname = SampleStr(
-				c.Father.Surname,
-				c.Surname,
-				c.Surname,
-				c.Surname,
-			)
-		}
-
-		// 2/3 of couples come from the same place
-		// so a random dad probably comes from the same
-		// place as mum does
-		c.Father.Nationality = SampleStr(
-			c.Father.Nationality,
-			c.Mother.Nationality,
-			c.Mother.Nationality,
-		)
-	}
+	c.Mother = c.Mother.FillInTheBlanks(c.Father, c)
+	c.Father = c.Father.FillInTheBlanks(c.Mother, c)
 
 	if c.Surname == "" {
 		c.Surname = SampleStr(
@@ -199,37 +88,11 @@ func (c Character) FillInTheBlanks() Character {
 		)
 	}
 	c.Stats = c.Stats.FillInTheBlanks()
+	c.Infancy = c.Infancy.FillInTheBlanks()
 	return c
 }
 
-func (c Stats) FillInTheBlanks() Stats {
-	if c.Strength == 0 {
-		c.Strength = rollStat()
-	}
-
-	if c.Dexterity == 0 {
-		c.Dexterity = rollStat()
-	}
-
-	if c.Constitution == 0 {
-		c.Constitution = rollStat()
-	}
-
-	if c.Wisdom == 0 {
-		c.Wisdom = rollStat()
-	}
-
-	if c.Intelligence == 0 {
-		c.Intelligence = rollStat()
-	}
-
-	if c.Charisma == 0 {
-		c.Charisma = rollStat()
-	}
-
-	return c
-}
-
+// SampleStr returns one of the given strings at random
 func SampleStr(options ...string) string {
 	return options[rand.Intn(len(options))]
 }

@@ -7,9 +7,9 @@ func RandomRace() Race {
 }
 
 type Race struct {
-	Name       string
-	MotherRace string
-	FatherRace string
+	Name string
+	Mix1 string
+	Mix2 string
 }
 
 func (r Race) MarshalText() (text []byte, err error) {
@@ -23,38 +23,13 @@ func (r Race) Halfbreed() bool {
 func (r *Race) UnmarshalText(text []byte) (err error) {
 	n := TryGetRace(string(text))
 	r.Name = n.Name
-	r.MotherRace = n.MotherRace
-	r.FatherRace = n.FatherRace
+	r.Mix1 = n.Mix1
+	r.Mix2 = n.Mix2
 	return nil
-}
-
-func (r Race) Mother() Race {
-	if r.MotherRace == "" {
-		return r
-	}
-	return GetRace(r.MotherRace)
-}
-
-func (r Race) Father() Race {
-	if r.FatherRace == "" {
-		return r
-	}
-	return GetRace(r.FatherRace)
 }
 
 func (r Race) String() string {
 	return r.Name
-}
-
-func halfbreeds(name string, base1 string, base2 string) []Race {
-	return []Race{
-		Race{Name: name, MotherRace: name, FatherRace: base1},
-		Race{Name: name, MotherRace: name, FatherRace: base2},
-		Race{Name: name, MotherRace: base1, FatherRace: name},
-		Race{Name: name, MotherRace: base1, FatherRace: base2},
-		Race{Name: name, MotherRace: base2, FatherRace: base1},
-		Race{Name: name, MotherRace: base2, FatherRace: name},
-	}
 }
 
 var races []Race
@@ -77,33 +52,18 @@ func TryGetRace(name string) Race {
 	return Race{}
 }
 
-func GetRaceMatchingParents(name string, dad string, mum string) Race {
-	for _, race := range Races() {
-		if (name == "" || race.Name == name) &&
-			(mum == "" || race.MotherRace == mum) &&
-			(dad == "" || race.FatherRace == dad) {
-
-			return race
-		}
-	}
-	return Race{}
-}
-
 func Races() []Race {
 	if len(races) == 0 {
-		races = append([]Race{
+		races = []Race{
 			Race{Name: "Human"},
 			Race{Name: "Dwarf"},
 			Race{Name: "Elf"},
 			Race{Name: "Orc"},
 			Race{Name: "Halfling"},
 			Race{Name: "Gnome"},
-		},
-			append(
-				halfbreeds("Half-elf", "Human", "Elf"),
-				halfbreeds("Half-orc", "Human", "Orc")...,
-			)...,
-		)
+			Race{Name: "Half-elf", Mix1: "Elf", Mix2: "Human"},
+			Race{Name: "Half-orc", Mix1: "Orc", Mix2: "Human"},
+		}
 	}
 
 	return races

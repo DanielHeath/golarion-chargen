@@ -16,6 +16,9 @@ bin/gb-vendor: $(wildcard vendor/src/github.com/constabulary/**/*.go)
 bin/gb: bin/gb-vendor $(wildcard vendor/src/github.com/constabulary/**/*.go)
 	go build -o bin/gb github.com/constabulary/gb/cmd/gb
 
+bin/gopherjs: $(wildcard src/**/*.go) $(wildcard vendor/src/**/*.go) ./bin/gb
+	gb build github.com/gopherjs/gopherjs
+
 bin/hugo: $(wildcard src/**/*.go) $(wildcard vendor/src/**/*.go) ./bin/gb
 	gb build github.com/spf13/hugo
 

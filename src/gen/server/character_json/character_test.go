@@ -52,12 +52,12 @@ func TestRoundTrip(t *testing.T) {
 		)
 	}
 
-	assertEq(t, uint(9), responseChar.Stats.Strength)
-	assertNeq(t, uint(0), responseChar.Stats.Dexterity)
-	assertEq(t, uint(13), responseChar.Stats.Constitution)
-	assertEq(t, uint(9), responseChar.Stats.Intelligence)
-	assertNeq(t, uint(0), responseChar.Stats.Wisdom)
-	assertEq(t, uint(14), responseChar.Stats.Charisma)
+	assertEq(t, int(9), responseChar.Stats.Strength)
+	assertNeq(t, int(0), responseChar.Stats.Dexterity)
+	assertEq(t, int(13), responseChar.Stats.Constitution)
+	assertEq(t, int(9), responseChar.Stats.Intelligence)
+	assertNeq(t, int(0), responseChar.Stats.Wisdom)
+	assertEq(t, int(14), responseChar.Stats.Charisma)
 }
 
 func assertEq(t *testing.T, v1 interface{}, v2 interface{}) {
