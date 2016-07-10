@@ -2,15 +2,161 @@
 	"version": 0,
 	"dependencies": [
 		{
+			"importpath": "github.com/9fans/go/acme",
+			"repository": "https://github.com/9fans/go",
+			"revision": "65b8cf069318223b1e722b4b36e729e5e9bb9eab",
+			"branch": "master",
+			"path": "/acme"
+		},
+		{
 			"importpath": "github.com/constabulary/gb",
 			"repository": "https://github.com/constabulary/gb",
 			"revision": "f25e86b87a4dde2eeca7c5ce10ad5431224a12f2",
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/dominikh/go-js-dom",
+			"repository": "https://github.com/dominikh/go-js-dom",
+			"revision": "24aa052bc5c63cfb9383bf59493ee48621ca788c",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/fsnotify/fsnotify",
+			"repository": "https://github.com/fsnotify/fsnotify",
+			"revision": "a8a77c9133d2d6fd8334f3260d06f60e8d80a5fb",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/golang/lint",
+			"repository": "https://github.com/golang/lint",
+			"revision": "c7bacac2b21ca01afa1dee0acf64df3ce047c28f",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/golang/lint/golint",
+			"repository": "https://github.com/golang/lint",
+			"revision": "c7bacac2b21ca01afa1dee0acf64df3ce047c28f",
+			"branch": "master",
+			"path": "/golint"
+		},
+		{
+			"importpath": "github.com/gopherjs/gopherjs",
+			"repository": "https://github.com/gopherjs/gopherjs",
+			"revision": "090403452ab6979e3b7c054ceb7ee23da91b2ae4",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/kardianos/osext",
+			"repository": "https://github.com/kardianos/osext",
+			"revision": "29ae4ffbc9a6fe9fb2bc5029050ce6996ea1d3bc",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/lukehoban/go-outline",
+			"repository": "https://github.com/lukehoban/go-outline",
+			"revision": "6814d6f50d38bbd47acf9695db0260e30015de06",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/neelance/astrewrite",
+			"repository": "https://github.com/neelance/astrewrite",
+			"revision": "99348263ae862cc230986ce88deaddbf7edcc034",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/neelance/sourcemap",
+			"repository": "https://github.com/neelance/sourcemap",
+			"revision": "8c68805598ab8d5637b1a72b5f7d381ea0f39c31",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/newhook/go-symbols",
+			"repository": "https://github.com/newhook/go-symbols",
+			"revision": "b75dfefa0d235b7ad4cc62f3cadbccb3ea0db81f",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/nsf/gocode",
+			"repository": "https://github.com/nsf/gocode",
+			"revision": "f535dc686130fcc7b942c504ce5903222a205ca3",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/pkg/errors",
 			"repository": "https://github.com/pkg/errors",
 			"revision": "a2d6902c6d2a2f194eb3fb474981ab7867c81505",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/rogpeppe/godef",
+			"repository": "https://github.com/rogpeppe/godef",
+			"revision": "ee532b944160bb27b6f23e4f5ef38b8fdaa2a6bd",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/spf13/cobra",
+			"repository": "https://github.com/spf13/cobra",
+			"revision": "a272c3cbd5ff80a5bf5c5603df50183f9f3f7324",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/spf13/pflag",
+			"repository": "https://github.com/spf13/pflag",
+			"revision": "367864438f1b1a3c7db4da06a2f55b144e6784e0",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/tpng/gopkgs",
+			"repository": "https://github.com/tpng/gopkgs",
+			"revision": "01f44316de4b24a2ec9ce0a792e3de1e1499b018",
+			"branch": "master"
+		},
+		{
+			"importpath": "golang.org/x/crypto/ssh/terminal",
+			"repository": "https://go.googlesource.com/crypto",
+			"revision": "c2f4947f41766b144bb09066e919466da5eddeae",
+			"branch": "master",
+			"path": "/ssh/terminal"
+		},
+		{
+			"importpath": "golang.org/x/sys/unix",
+			"repository": "https://go.googlesource.com/sys",
+			"revision": "a408501be4d17ee978c04a618e7a1b22af058c0e",
+			"branch": "master",
+			"path": "/unix"
+		},
+		{
+			"importpath": "golang.org/x/tools/cmd/gorename",
+			"repository": "https://go.googlesource.com/tools",
+			"revision": "35c6e68a1a5ffc3e3afef71586710e9b0515582d",
+			"branch": "master",
+			"path": "/cmd/gorename"
+		},
+		{
+			"importpath": "golang.org/x/tools/cmd/guru",
+			"repository": "https://go.googlesource.com/tools",
+			"revision": "35c6e68a1a5ffc3e3afef71586710e9b0515582d",
+			"branch": "master",
+			"path": "/cmd/guru"
+		},
+		{
+			"importpath": "golang.org/x/tools/go/types/typeutil",
+			"repository": "https://go.googlesource.com/tools",
+			"revision": "35c6e68a1a5ffc3e3afef71586710e9b0515582d",
+			"branch": "master",
+			"path": "/go/types/typeutil"
+		},
+		{
+			"importpath": "golang.org/x/tools/imports",
+			"repository": "https://go.googlesource.com/tools",
+			"revision": "35c6e68a1a5ffc3e3afef71586710e9b0515582d",
+			"branch": "master",
+			"path": "/imports"
+		},
+		{
+			"importpath": "sourcegraph.com/sqs/goreturns",
+			"repository": "https://github.com/sqs/goreturns",
+			"revision": "6937071b7e1702a52f31a199c2ebb3796475494f",
 			"branch": "master"
 		}
 	]
