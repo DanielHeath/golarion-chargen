@@ -41143,16 +41143,24 @@ $packages["gen/frontend"] = (function() {
 		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: rerender }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f._r$3 = _r$3; $f._r$4 = _r$4; $f._r$5 = _r$5; $f._tuple$1 = _tuple$1; $f.body = body; $f.err = err; $f.str = str; $f.$s = $s; $f.$r = $r; return $f;
 	};
 	repickNationality = function() {
-		var $ptr, _r$2, $s, $r;
-		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r$2 = $f._r$2; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		var $ptr, _r$2, oldNationality, $s, $r;
+		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r$2 = $f._r$2; oldNationality = $f.oldNationality; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		oldNationality = character.Nationality;
 		character.Nationality = "";
 		character.Father.Nationality = "";
 		character.Mother.Nationality = "";
-		character.SpentFatePoints = character.SpentFatePoints + (1) >> 0;
 		_r$2 = character.FillInTheBlanks(); /* */ $s = 1; case 1: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
 		types.Character.copy(character, _r$2);
-		$go(rerender, []);
-		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: repickNationality }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f.$s = $s; $f.$r = $r; return $f;
+		/* */ if (character.Nationality === oldNationality) { $s = 2; continue; }
+		/* */ $s = 3; continue;
+		/* if (character.Nationality === oldNationality) { */ case 2:
+			$r = repickNationality(); /* */ $s = 5; case 5: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+			$s = 4; continue;
+		/* } else { */ case 3:
+			character.SpentFatePoints = character.SpentFatePoints + (1) >> 0;
+			$go(rerender, []);
+		/* } */ case 4:
+		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: repickNationality }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f.oldNationality = oldNationality; $f.$s = $s; $f.$r = $r; return $f;
 	};
 	repickDad = function() {
 		var $ptr, _r$2, $s, $r;
@@ -41175,16 +41183,30 @@ $packages["gen/frontend"] = (function() {
 		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: repickMum }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f.$s = $s; $f.$r = $r; return $f;
 	};
 	repickRace = function() {
-		var $ptr, _r$2, $s, $r;
-		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r$2 = $f._r$2; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		var $ptr, _r$2, oldRace, $s, $r;
+		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r$2 = $f._r$2; oldRace = $f.oldRace; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		oldRace = character.Race.Name;
 		types.Race.copy(character.Race, new types.Race.ptr("", "", ""));
+		character.Name = "";
+		character.Surname = "";
 		types.Race.copy(character.Mother.Race, new types.Race.ptr("", "", ""));
+		character.Mother.Name = "";
+		character.Mother.Surname = "";
 		types.Race.copy(character.Father.Race, new types.Race.ptr("", "", ""));
-		character.SpentFatePoints = character.SpentFatePoints + (1) >> 0;
+		character.Father.Name = "";
+		character.Father.Surname = "";
 		_r$2 = character.FillInTheBlanks(); /* */ $s = 1; case 1: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
 		types.Character.copy(character, _r$2);
-		$go(rerender, []);
-		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: repickRace }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f.$s = $s; $f.$r = $r; return $f;
+		/* */ if (character.Race.Name === oldRace) { $s = 2; continue; }
+		/* */ $s = 3; continue;
+		/* if (character.Race.Name === oldRace) { */ case 2:
+			$r = repickRace(); /* */ $s = 5; case 5: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+			$s = 4; continue;
+		/* } else { */ case 3:
+			character.SpentFatePoints = character.SpentFatePoints + (1) >> 0;
+			$go(rerender, []);
+		/* } */ case 4:
+		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: repickRace }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f.oldRace = oldRace; $f.$s = $s; $f.$r = $r; return $f;
 	};
 	runTemplate = function(t, data) {
 		var $ptr, _r$2, _r$3, _tuple$1, buf, data, err, result, t, $s, $r;
