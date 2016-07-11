@@ -38,12 +38,17 @@ func rerender() {
 }
 
 func repickNationality() {
+	oldNationality := character.Nationality
 	character.Nationality = ""
 	character.Father.Nationality = ""
 	character.Mother.Nationality = ""
-	character.SpentFatePoints++
 	character = character.FillInTheBlanks()
-	go rerender()
+	if character.Nationality == oldNationality {
+		repickNationality()
+	} else {
+		character.SpentFatePoints++
+		go rerender()
+	}
 }
 
 func repickDad() {
@@ -61,12 +66,23 @@ func repickMum() {
 }
 
 func repickRace() {
+	oldRace := character.Race.Name
 	character.Race = types.Race{}
+	character.Name = ""
+	character.Surname = ""
 	character.Mother.Race = types.Race{}
+	character.Mother.Name = ""
+	character.Mother.Surname = ""
 	character.Father.Race = types.Race{}
-	character.SpentFatePoints++
+	character.Father.Name = ""
+	character.Father.Surname = ""
 	character = character.FillInTheBlanks()
-	go rerender()
+	if character.Race.Name == oldRace {
+		repickRace()
+	} else {
+		character.SpentFatePoints++
+		go rerender()
+	}
 }
 
 const htmlTemplate = `
