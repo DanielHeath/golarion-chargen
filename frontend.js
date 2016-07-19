@@ -20701,19 +20701,20 @@ $packages["gen/types"] = (function() {
 	var $pkg = {}, $init, fmt, rand, Character, Childhood, Infancy, Parent, Race, Stats, sliceType, sliceType$1, sliceType$2, sliceType$3, ptrType, races, SampleStr, RandomNationality, RandomOccupation, vowel, an, RandomRace, GetRace, TryGetRace, Races, rollStat;
 	fmt = $packages["fmt"];
 	rand = $packages["math/rand"];
-	Character = $pkg.Character = $newType(0, $kindStruct, "types.Character", "Character", "gen/types", function(Name_, Surname_, Race_, Sex_, Nationality_, Mother_, Father_, Stats_, SpentFatePoints_, Infancy_, Childhood_) {
+	Character = $pkg.Character = $newType(0, $kindStruct, "types.Character", "Character", "gen/types", function(Name_, Surname_, Race_, Sex_, Nationality_, Deity_, Mother_, Father_, Stats_, SpentFatePoints_, Infancy_, Childhood_) {
 		this.$val = this;
 		if (arguments.length === 0) {
 			this.Name = "";
 			this.Surname = "";
-			this.Race = new Race.ptr("", "", "");
+			this.Race = new Race.ptr("", "", "", new Stats.ptr(0, 0, 0, 0, 0, 0));
 			this.Sex = "";
 			this.Nationality = "";
-			this.Mother = new Parent.ptr("", "", new Race.ptr("", "", ""), "", "");
-			this.Father = new Parent.ptr("", "", new Race.ptr("", "", ""), "", "");
+			this.Deity = "";
+			this.Mother = new Parent.ptr("", "", new Race.ptr("", "", "", new Stats.ptr(0, 0, 0, 0, 0, 0)), "", "");
+			this.Father = new Parent.ptr("", "", new Race.ptr("", "", "", new Stats.ptr(0, 0, 0, 0, 0, 0)), "", "");
 			this.Stats = new Stats.ptr(0, 0, 0, 0, 0, 0);
 			this.SpentFatePoints = 0;
-			this.Infancy = new Infancy.ptr("", "");
+			this.Infancy = new Infancy.ptr("", "", "");
 			this.Childhood = new Childhood.ptr("", "");
 			return;
 		}
@@ -20722,6 +20723,7 @@ $packages["gen/types"] = (function() {
 		this.Race = Race_;
 		this.Sex = Sex_;
 		this.Nationality = Nationality_;
+		this.Deity = Deity_;
 		this.Mother = Mother_;
 		this.Father = Father_;
 		this.Stats = Stats_;
@@ -20739,22 +20741,24 @@ $packages["gen/types"] = (function() {
 		this.Activity = Activity_;
 		this.Location = Location_;
 	});
-	Infancy = $pkg.Infancy = $newType(0, $kindStruct, "types.Infancy", "Infancy", "gen/types", function(Carer_, Location_) {
+	Infancy = $pkg.Infancy = $newType(0, $kindStruct, "types.Infancy", "Infancy", "gen/types", function(Carer_, Location_, Deity_) {
 		this.$val = this;
 		if (arguments.length === 0) {
 			this.Carer = "";
 			this.Location = "";
+			this.Deity = "";
 			return;
 		}
 		this.Carer = Carer_;
 		this.Location = Location_;
+		this.Deity = Deity_;
 	});
 	Parent = $pkg.Parent = $newType(0, $kindStruct, "types.Parent", "Parent", "gen/types", function(Name_, Surname_, Race_, Occupation_, Nationality_) {
 		this.$val = this;
 		if (arguments.length === 0) {
 			this.Name = "";
 			this.Surname = "";
-			this.Race = new Race.ptr("", "", "");
+			this.Race = new Race.ptr("", "", "", new Stats.ptr(0, 0, 0, 0, 0, 0));
 			this.Occupation = "";
 			this.Nationality = "";
 			return;
@@ -20765,17 +20769,19 @@ $packages["gen/types"] = (function() {
 		this.Occupation = Occupation_;
 		this.Nationality = Nationality_;
 	});
-	Race = $pkg.Race = $newType(0, $kindStruct, "types.Race", "Race", "gen/types", function(Name_, Mix1_, Mix2_) {
+	Race = $pkg.Race = $newType(0, $kindStruct, "types.Race", "Race", "gen/types", function(Name_, Mix1_, Mix2_, Stats_) {
 		this.$val = this;
 		if (arguments.length === 0) {
 			this.Name = "";
 			this.Mix1 = "";
 			this.Mix2 = "";
+			this.Stats = new Stats.ptr(0, 0, 0, 0, 0, 0);
 			return;
 		}
 		this.Name = Name_;
 		this.Mix1 = Mix1_;
 		this.Mix2 = Mix2_;
+		this.Stats = Stats_;
 	});
 	Stats = $pkg.Stats = $newType(0, $kindStruct, "types.Stats", "Stats", "gen/types", function(Strength_, Dexterity_, Constitution_, Wisdom_, Intelligence_, Charisma_) {
 		this.$val = this;
@@ -20811,8 +20817,8 @@ $packages["gen/types"] = (function() {
 	};
 	Character.prototype.String = function() { return this.$val.String(); };
 	Character.ptr.prototype.FillInTheBlanks = function() {
-		var $ptr, _arg, _arg$1, _arg$10, _arg$11, _arg$12, _arg$13, _arg$2, _arg$3, _arg$4, _arg$5, _arg$6, _arg$7, _arg$8, _arg$9, _r, _r$1, _r$10, _r$11, _r$12, _r$2, _r$3, _r$4, _r$5, _r$6, _r$7, _r$8, _r$9, c, $s, $r;
-		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _arg = $f._arg; _arg$1 = $f._arg$1; _arg$10 = $f._arg$10; _arg$11 = $f._arg$11; _arg$12 = $f._arg$12; _arg$13 = $f._arg$13; _arg$2 = $f._arg$2; _arg$3 = $f._arg$3; _arg$4 = $f._arg$4; _arg$5 = $f._arg$5; _arg$6 = $f._arg$6; _arg$7 = $f._arg$7; _arg$8 = $f._arg$8; _arg$9 = $f._arg$9; _r = $f._r; _r$1 = $f._r$1; _r$10 = $f._r$10; _r$11 = $f._r$11; _r$12 = $f._r$12; _r$2 = $f._r$2; _r$3 = $f._r$3; _r$4 = $f._r$4; _r$5 = $f._r$5; _r$6 = $f._r$6; _r$7 = $f._r$7; _r$8 = $f._r$8; _r$9 = $f._r$9; c = $f.c; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		var $ptr, _arg, _arg$1, _arg$10, _arg$11, _arg$12, _arg$13, _arg$2, _arg$3, _arg$4, _arg$5, _arg$6, _arg$7, _arg$8, _arg$9, _r, _r$1, _r$10, _r$11, _r$12, _r$13, _r$2, _r$3, _r$4, _r$5, _r$6, _r$7, _r$8, _r$9, c, $s, $r;
+		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _arg = $f._arg; _arg$1 = $f._arg$1; _arg$10 = $f._arg$10; _arg$11 = $f._arg$11; _arg$12 = $f._arg$12; _arg$13 = $f._arg$13; _arg$2 = $f._arg$2; _arg$3 = $f._arg$3; _arg$4 = $f._arg$4; _arg$5 = $f._arg$5; _arg$6 = $f._arg$6; _arg$7 = $f._arg$7; _arg$8 = $f._arg$8; _arg$9 = $f._arg$9; _r = $f._r; _r$1 = $f._r$1; _r$10 = $f._r$10; _r$11 = $f._r$11; _r$12 = $f._r$12; _r$13 = $f._r$13; _r$2 = $f._r$2; _r$3 = $f._r$3; _r$4 = $f._r$4; _r$5 = $f._r$5; _r$6 = $f._r$6; _r$7 = $f._r$7; _r$8 = $f._r$8; _r$9 = $f._r$9; c = $f.c; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
 		c = $clone(this, Character);
 		/* */ if (c.Sex === "") { $s = 1; continue; }
 		/* */ $s = 2; continue;
@@ -20820,9 +20826,9 @@ $packages["gen/types"] = (function() {
 			_r = SampleStr(new sliceType$1(["Male", "Female"])); /* */ $s = 3; case 3: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
 			c.Sex = _r;
 		/* } */ case 2:
-		/* */ if ($equal(c.Race, new Race.ptr("", "", ""), Race)) { $s = 4; continue; }
+		/* */ if ($equal(c.Race, new Race.ptr("", "", "", new Stats.ptr(0, 0, 0, 0, 0, 0)), Race)) { $s = 4; continue; }
 		/* */ $s = 5; continue;
-		/* if ($equal(c.Race, new Race.ptr("", "", ""), Race)) { */ case 4:
+		/* if ($equal(c.Race, new Race.ptr("", "", "", new Stats.ptr(0, 0, 0, 0, 0, 0)), Race)) { */ case 4:
 			_r$1 = RandomRace(); /* */ $s = 6; case 6: if($c) { $c = false; _r$1 = _r$1.$blk(); } if (_r$1 && _r$1.$blk !== undefined) { break s; }
 			Race.copy(c.Race, _r$1);
 		/* } */ case 5:
@@ -20856,28 +20862,34 @@ $packages["gen/types"] = (function() {
 			_r$7 = SampleStr(new sliceType$1([_arg, _arg$1, _arg$2, _arg$3, _arg$4, _arg$5, _arg$6])); /* */ $s = 18; case 18: if($c) { $c = false; _r$7 = _r$7.$blk(); } if (_r$7 && _r$7.$blk !== undefined) { break s; }
 			c.Surname = _r$7;
 		/* } */ case 16:
-		/* */ if (c.Nationality === "") { $s = 19; continue; }
+		/* */ if (c.Deity === "") { $s = 19; continue; }
 		/* */ $s = 20; continue;
-		/* if (c.Nationality === "") { */ case 19:
+		/* if (c.Deity === "") { */ case 19:
+			_r$8 = SampleStr($pkg.Gods); /* */ $s = 21; case 21: if($c) { $c = false; _r$8 = _r$8.$blk(); } if (_r$8 && _r$8.$blk !== undefined) { break s; }
+			c.Deity = _r$8;
+		/* } */ case 20:
+		/* */ if (c.Nationality === "") { $s = 22; continue; }
+		/* */ $s = 23; continue;
+		/* if (c.Nationality === "") { */ case 22:
 			_arg$7 = c.Father.Nationality;
 			_arg$8 = c.Father.Nationality;
 			_arg$9 = c.Father.Nationality;
 			_arg$10 = c.Mother.Nationality;
 			_arg$11 = c.Mother.Nationality;
 			_arg$12 = c.Mother.Nationality;
-			_r$8 = SampleStr($pkg.Nationalities); /* */ $s = 21; case 21: if($c) { $c = false; _r$8 = _r$8.$blk(); } if (_r$8 && _r$8.$blk !== undefined) { break s; }
-			_arg$13 = _r$8;
-			_r$9 = SampleStr(new sliceType$1([_arg$7, _arg$8, _arg$9, _arg$10, _arg$11, _arg$12, _arg$13])); /* */ $s = 22; case 22: if($c) { $c = false; _r$9 = _r$9.$blk(); } if (_r$9 && _r$9.$blk !== undefined) { break s; }
-			c.Nationality = _r$9;
-		/* } */ case 20:
-		_r$10 = c.Stats.FillInTheBlanks(); /* */ $s = 23; case 23: if($c) { $c = false; _r$10 = _r$10.$blk(); } if (_r$10 && _r$10.$blk !== undefined) { break s; }
-		Stats.copy(c.Stats, _r$10);
-		_r$11 = c.Infancy.FillInTheBlanks(); /* */ $s = 24; case 24: if($c) { $c = false; _r$11 = _r$11.$blk(); } if (_r$11 && _r$11.$blk !== undefined) { break s; }
-		Infancy.copy(c.Infancy, _r$11);
-		_r$12 = c.Childhood.FillInTheBlanks(); /* */ $s = 25; case 25: if($c) { $c = false; _r$12 = _r$12.$blk(); } if (_r$12 && _r$12.$blk !== undefined) { break s; }
-		Childhood.copy(c.Childhood, _r$12);
+			_r$9 = SampleStr($pkg.Nationalities); /* */ $s = 24; case 24: if($c) { $c = false; _r$9 = _r$9.$blk(); } if (_r$9 && _r$9.$blk !== undefined) { break s; }
+			_arg$13 = _r$9;
+			_r$10 = SampleStr(new sliceType$1([_arg$7, _arg$8, _arg$9, _arg$10, _arg$11, _arg$12, _arg$13])); /* */ $s = 25; case 25: if($c) { $c = false; _r$10 = _r$10.$blk(); } if (_r$10 && _r$10.$blk !== undefined) { break s; }
+			c.Nationality = _r$10;
+		/* } */ case 23:
+		_r$11 = c.Stats.FillInTheBlanks(); /* */ $s = 26; case 26: if($c) { $c = false; _r$11 = _r$11.$blk(); } if (_r$11 && _r$11.$blk !== undefined) { break s; }
+		Stats.copy(c.Stats, _r$11);
+		_r$12 = c.Infancy.FillInTheBlanks(c.Deity); /* */ $s = 27; case 27: if($c) { $c = false; _r$12 = _r$12.$blk(); } if (_r$12 && _r$12.$blk !== undefined) { break s; }
+		Infancy.copy(c.Infancy, _r$12);
+		_r$13 = c.Childhood.FillInTheBlanks(); /* */ $s = 28; case 28: if($c) { $c = false; _r$13 = _r$13.$blk(); } if (_r$13 && _r$13.$blk !== undefined) { break s; }
+		Childhood.copy(c.Childhood, _r$13);
 		return c;
-		/* */ } return; } if ($f === undefined) { $f = { $blk: Character.ptr.prototype.FillInTheBlanks }; } $f.$ptr = $ptr; $f._arg = _arg; $f._arg$1 = _arg$1; $f._arg$10 = _arg$10; $f._arg$11 = _arg$11; $f._arg$12 = _arg$12; $f._arg$13 = _arg$13; $f._arg$2 = _arg$2; $f._arg$3 = _arg$3; $f._arg$4 = _arg$4; $f._arg$5 = _arg$5; $f._arg$6 = _arg$6; $f._arg$7 = _arg$7; $f._arg$8 = _arg$8; $f._arg$9 = _arg$9; $f._r = _r; $f._r$1 = _r$1; $f._r$10 = _r$10; $f._r$11 = _r$11; $f._r$12 = _r$12; $f._r$2 = _r$2; $f._r$3 = _r$3; $f._r$4 = _r$4; $f._r$5 = _r$5; $f._r$6 = _r$6; $f._r$7 = _r$7; $f._r$8 = _r$8; $f._r$9 = _r$9; $f.c = c; $f.$s = $s; $f.$r = $r; return $f;
+		/* */ } return; } if ($f === undefined) { $f = { $blk: Character.ptr.prototype.FillInTheBlanks }; } $f.$ptr = $ptr; $f._arg = _arg; $f._arg$1 = _arg$1; $f._arg$10 = _arg$10; $f._arg$11 = _arg$11; $f._arg$12 = _arg$12; $f._arg$13 = _arg$13; $f._arg$2 = _arg$2; $f._arg$3 = _arg$3; $f._arg$4 = _arg$4; $f._arg$5 = _arg$5; $f._arg$6 = _arg$6; $f._arg$7 = _arg$7; $f._arg$8 = _arg$8; $f._arg$9 = _arg$9; $f._r = _r; $f._r$1 = _r$1; $f._r$10 = _r$10; $f._r$11 = _r$11; $f._r$12 = _r$12; $f._r$13 = _r$13; $f._r$2 = _r$2; $f._r$3 = _r$3; $f._r$4 = _r$4; $f._r$5 = _r$5; $f._r$6 = _r$6; $f._r$7 = _r$7; $f._r$8 = _r$8; $f._r$9 = _r$9; $f.c = c; $f.$s = $s; $f.$r = $r; return $f;
 	};
 	Character.prototype.FillInTheBlanks = function() { return this.$val.FillInTheBlanks(); };
 	SampleStr = function(options) {
@@ -20896,39 +20908,77 @@ $packages["gen/types"] = (function() {
 		/* */ if (c.Activity === "") { $s = 1; continue; }
 		/* */ $s = 2; continue;
 		/* if (c.Activity === "") { */ case 1:
-			_r = SampleStr(new sliceType$1(["playing silly buggers"])); /* */ $s = 3; case 3: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
+			_r = SampleStr(new sliceType$1(["[fixme] playing silly buggers", "[fixme] prancing"])); /* */ $s = 3; case 3: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
 			c.Activity = _r;
 		/* } */ case 2:
 		/* */ if (c.Location === "") { $s = 4; continue; }
 		/* */ $s = 5; continue;
 		/* if (c.Location === "") { */ case 4:
-			_r$1 = SampleStr(new sliceType$1(["on the castle walls"])); /* */ $s = 6; case 6: if($c) { $c = false; _r$1 = _r$1.$blk(); } if (_r$1 && _r$1.$blk !== undefined) { break s; }
+			_r$1 = SampleStr(new sliceType$1(["on the castle walls", "in the forest"])); /* */ $s = 6; case 6: if($c) { $c = false; _r$1 = _r$1.$blk(); } if (_r$1 && _r$1.$blk !== undefined) { break s; }
 			c.Location = _r$1;
 		/* } */ case 5:
 		return c;
 		/* */ } return; } if ($f === undefined) { $f = { $blk: Childhood.ptr.prototype.FillInTheBlanks }; } $f.$ptr = $ptr; $f._r = _r; $f._r$1 = _r$1; $f.c = c; $f.$s = $s; $f.$r = $r; return $f;
 	};
 	Childhood.prototype.FillInTheBlanks = function() { return this.$val.FillInTheBlanks(); };
-	Infancy.ptr.prototype.FillInTheBlanks = function() {
+	Infancy.ptr.prototype.String = function() {
 		var $ptr, _r, _r$1, s, $s, $r;
 		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r = $f._r; _r$1 = $f._r$1; s = $f.s; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		s = $clone(this, Infancy);
+		/* */ if (!(s.Deity === "")) { $s = 1; continue; }
+		/* */ $s = 2; continue;
+		/* if (!(s.Deity === "")) { */ case 1:
+			_r = fmt.Sprintf("%s %s %s", new sliceType$2([new $String(s.Carer), new $String(s.Deity), new $String(s.Location)])); /* */ $s = 3; case 3: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
+			/* */ $s = 4; case 4:
+			return _r;
+		/* } */ case 2:
+		_r$1 = fmt.Sprintf("%s %s", new sliceType$2([new $String(s.Carer), new $String(s.Location)])); /* */ $s = 5; case 5: if($c) { $c = false; _r$1 = _r$1.$blk(); } if (_r$1 && _r$1.$blk !== undefined) { break s; }
+		/* */ $s = 6; case 6:
+		return _r$1;
+		/* */ } return; } if ($f === undefined) { $f = { $blk: Infancy.ptr.prototype.String }; } $f.$ptr = $ptr; $f._r = _r; $f._r$1 = _r$1; $f.s = s; $f.$s = $s; $f.$r = $r; return $f;
+	};
+	Infancy.prototype.String = function() { return this.$val.String(); };
+	Infancy.ptr.prototype.FillInTheBlanks = function(deity) {
+		var $ptr, _arg, _arg$1, _arg$2, _arg$3, _arg$4, _arg$5, _arg$6, _arg$7, _r, _r$1, _r$2, _r$3, _r$4, deity, s, $s, $r;
+		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _arg = $f._arg; _arg$1 = $f._arg$1; _arg$2 = $f._arg$2; _arg$3 = $f._arg$3; _arg$4 = $f._arg$4; _arg$5 = $f._arg$5; _arg$6 = $f._arg$6; _arg$7 = $f._arg$7; _r = $f._r; _r$1 = $f._r$1; _r$2 = $f._r$2; _r$3 = $f._r$3; _r$4 = $f._r$4; deity = $f.deity; s = $f.s; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
 		s = $clone(this, Infancy);
 		/* */ if (s.Carer === "") { $s = 1; continue; }
 		/* */ $s = 2; continue;
 		/* if (s.Carer === "") { */ case 1:
-			_r = SampleStr(new sliceType$1(["your mum", "your mum", "your mum", "your mum", "your dad", "your dad", "your dad", "your loving foster parents", "the clergy of {god}"])); /* */ $s = 3; case 3: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
+			_r = SampleStr(new sliceType$1(["your mum", "your mum", "your mum", "your mum", "your dad", "your dad", "your dad", "your loving foster parents", "the clergy of"])); /* */ $s = 3; case 3: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
 			s.Carer = _r;
+			/* */ if (s.Carer === "the clergy of") { $s = 4; continue; }
+			/* */ $s = 5; continue;
+			/* if (s.Carer === "the clergy of") { */ case 4:
+				/* */ if (deity === "") { $s = 6; continue; }
+				/* */ $s = 7; continue;
+				/* if (deity === "") { */ case 6:
+					_r$1 = SampleStr($pkg.Gods); /* */ $s = 8; case 8: if($c) { $c = false; _r$1 = _r$1.$blk(); } if (_r$1 && _r$1.$blk !== undefined) { break s; }
+					deity = _r$1;
+				/* } */ case 7:
+				_arg = deity;
+				_arg$1 = deity;
+				_arg$2 = deity;
+				_arg$3 = deity;
+				_arg$4 = deity;
+				_arg$5 = deity;
+				_arg$6 = deity;
+				_r$2 = SampleStr($pkg.Gods); /* */ $s = 9; case 9: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
+				_arg$7 = _r$2;
+				_r$3 = SampleStr(new sliceType$1([_arg, _arg$1, _arg$2, _arg$3, _arg$4, _arg$5, _arg$6, _arg$7])); /* */ $s = 10; case 10: if($c) { $c = false; _r$3 = _r$3.$blk(); } if (_r$3 && _r$3.$blk !== undefined) { break s; }
+				s.Deity = _r$3;
+			/* } */ case 5:
 		/* } */ case 2:
-		/* */ if (s.Location === "") { $s = 4; continue; }
-		/* */ $s = 5; continue;
-		/* if (s.Location === "") { */ case 4:
-			_r$1 = SampleStr(new sliceType$1(["in a farmhouse", "in a castle", "in a wizards tower", "in the poor part of town", "in the ritzy part of town", "aboard a ship", "in the wilds", "in an army camp, wherever it went"])); /* */ $s = 6; case 6: if($c) { $c = false; _r$1 = _r$1.$blk(); } if (_r$1 && _r$1.$blk !== undefined) { break s; }
-			s.Location = _r$1;
-		/* } */ case 5:
+		/* */ if (s.Location === "") { $s = 11; continue; }
+		/* */ $s = 12; continue;
+		/* if (s.Location === "") { */ case 11:
+			_r$4 = SampleStr(new sliceType$1(["in a farmhouse", "in a castle", "in a wizards tower", "in the poor part of town", "in the ritzy part of town", "aboard a ship", "in the wilds", "in an army camp, wherever it went"])); /* */ $s = 13; case 13: if($c) { $c = false; _r$4 = _r$4.$blk(); } if (_r$4 && _r$4.$blk !== undefined) { break s; }
+			s.Location = _r$4;
+		/* } */ case 12:
 		return s;
-		/* */ } return; } if ($f === undefined) { $f = { $blk: Infancy.ptr.prototype.FillInTheBlanks }; } $f.$ptr = $ptr; $f._r = _r; $f._r$1 = _r$1; $f.s = s; $f.$s = $s; $f.$r = $r; return $f;
+		/* */ } return; } if ($f === undefined) { $f = { $blk: Infancy.ptr.prototype.FillInTheBlanks }; } $f.$ptr = $ptr; $f._arg = _arg; $f._arg$1 = _arg$1; $f._arg$2 = _arg$2; $f._arg$3 = _arg$3; $f._arg$4 = _arg$4; $f._arg$5 = _arg$5; $f._arg$6 = _arg$6; $f._arg$7 = _arg$7; $f._r = _r; $f._r$1 = _r$1; $f._r$2 = _r$2; $f._r$3 = _r$3; $f._r$4 = _r$4; $f.deity = deity; $f.s = s; $f.$s = $s; $f.$r = $r; return $f;
 	};
-	Infancy.prototype.FillInTheBlanks = function() { return this.$val.FillInTheBlanks(); };
+	Infancy.prototype.FillInTheBlanks = function(deity) { return this.$val.FillInTheBlanks(deity); };
 	RandomNationality = function() {
 		var $ptr, _r, $s, $r;
 		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r = $f._r; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
@@ -21111,13 +21161,13 @@ $packages["gen/types"] = (function() {
 			}
 			_i++;
 		}
-		return new Race.ptr("", "", "");
+		return new Race.ptr("", "", "", new Stats.ptr(0, 0, 0, 0, 0, 0));
 	};
 	$pkg.TryGetRace = TryGetRace;
 	Races = function() {
 		var $ptr;
 		if (races.$length === 0) {
-			races = new sliceType([new Race.ptr("Human", "", ""), new Race.ptr("Dwarf", "", ""), new Race.ptr("Elf", "", ""), new Race.ptr("Orc", "", ""), new Race.ptr("Halfling", "", ""), new Race.ptr("Gnome", "", ""), new Race.ptr("Half-elf", "Elf", "Human"), new Race.ptr("Half-orc", "Orc", "Human")]);
+			races = new sliceType([new Race.ptr("Human", "", "", new Stats.ptr(0, 0, 0, 0, 0, 0)), new Race.ptr("Half-elf", "Elf", "Human", new Stats.ptr(0, 0, 0, 0, 0, 0)), new Race.ptr("Half-orc", "Orc", "Human", new Stats.ptr(0, 0, 0, 0, 0, 0)), new Race.ptr("Dwarf", "", "", new Stats.ptr(0, 0, 2, 2, 0, -2)), new Race.ptr("Elf", "", "", new Stats.ptr(0, 2, -2, 0, 2, 0)), new Race.ptr("Orc", "", "", new Stats.ptr(4, 0, 0, -2, -2, -2)), new Race.ptr("Halfling", "", "", new Stats.ptr(-2, 2, 0, 0, 0, 2)), new Race.ptr("Gnome", "", "", new Stats.ptr(-2, 0, 2, 0, 0, 2))]);
 		}
 		return races;
 	};
@@ -21357,16 +21407,16 @@ $packages["gen/types"] = (function() {
 	Stats.prototype.FillInTheBlanks = function() { return this.$val.FillInTheBlanks(); };
 	Character.methods = [{prop: "String", name: "String", pkg: "", typ: $funcType([], [$String], false)}, {prop: "FillInTheBlanks", name: "FillInTheBlanks", pkg: "", typ: $funcType([], [Character], false)}];
 	Childhood.methods = [{prop: "FillInTheBlanks", name: "FillInTheBlanks", pkg: "", typ: $funcType([], [Childhood], false)}];
-	Infancy.methods = [{prop: "FillInTheBlanks", name: "FillInTheBlanks", pkg: "", typ: $funcType([], [Infancy], false)}];
+	Infancy.methods = [{prop: "String", name: "String", pkg: "", typ: $funcType([], [$String], false)}, {prop: "FillInTheBlanks", name: "FillInTheBlanks", pkg: "", typ: $funcType([$String], [Infancy], false)}];
 	Parent.methods = [{prop: "String", name: "String", pkg: "", typ: $funcType([], [$String], false)}, {prop: "FillInTheBlanks", name: "FillInTheBlanks", pkg: "", typ: $funcType([Parent, Character], [Parent], false)}];
 	Race.methods = [{prop: "MarshalText", name: "MarshalText", pkg: "", typ: $funcType([], [sliceType$3, $error], false)}, {prop: "Halfbreed", name: "Halfbreed", pkg: "", typ: $funcType([], [$Bool], false)}, {prop: "String", name: "String", pkg: "", typ: $funcType([], [$String], false)}, {prop: "RandomMaleName", name: "RandomMaleName", pkg: "", typ: $funcType([], [$String], false)}, {prop: "RandomFemaleName", name: "RandomFemaleName", pkg: "", typ: $funcType([], [$String], false)}, {prop: "RandomSurname", name: "RandomSurname", pkg: "", typ: $funcType([], [$String], false)}];
 	ptrType.methods = [{prop: "UnmarshalText", name: "UnmarshalText", pkg: "", typ: $funcType([sliceType$3], [$error], false)}];
 	Stats.methods = [{prop: "String", name: "String", pkg: "", typ: $funcType([], [$String], false)}, {prop: "BaseFatePoints", name: "BaseFatePoints", pkg: "", typ: $funcType([], [$Int], false)}, {prop: "Total", name: "Total", pkg: "", typ: $funcType([], [$Int], false)}, {prop: "FillInTheBlanks", name: "FillInTheBlanks", pkg: "", typ: $funcType([], [Stats], false)}];
-	Character.init([{prop: "Name", name: "Name", pkg: "", typ: $String, tag: ""}, {prop: "Surname", name: "Surname", pkg: "", typ: $String, tag: ""}, {prop: "Race", name: "Race", pkg: "", typ: Race, tag: ""}, {prop: "Sex", name: "Sex", pkg: "", typ: $String, tag: ""}, {prop: "Nationality", name: "Nationality", pkg: "", typ: $String, tag: ""}, {prop: "Mother", name: "Mother", pkg: "", typ: Parent, tag: ""}, {prop: "Father", name: "Father", pkg: "", typ: Parent, tag: ""}, {prop: "Stats", name: "Stats", pkg: "", typ: Stats, tag: ""}, {prop: "SpentFatePoints", name: "SpentFatePoints", pkg: "", typ: $Int, tag: ""}, {prop: "Infancy", name: "Infancy", pkg: "", typ: Infancy, tag: ""}, {prop: "Childhood", name: "Childhood", pkg: "", typ: Childhood, tag: ""}]);
+	Character.init([{prop: "Name", name: "Name", pkg: "", typ: $String, tag: ""}, {prop: "Surname", name: "Surname", pkg: "", typ: $String, tag: ""}, {prop: "Race", name: "Race", pkg: "", typ: Race, tag: ""}, {prop: "Sex", name: "Sex", pkg: "", typ: $String, tag: ""}, {prop: "Nationality", name: "Nationality", pkg: "", typ: $String, tag: ""}, {prop: "Deity", name: "Deity", pkg: "", typ: $String, tag: ""}, {prop: "Mother", name: "Mother", pkg: "", typ: Parent, tag: ""}, {prop: "Father", name: "Father", pkg: "", typ: Parent, tag: ""}, {prop: "Stats", name: "Stats", pkg: "", typ: Stats, tag: ""}, {prop: "SpentFatePoints", name: "SpentFatePoints", pkg: "", typ: $Int, tag: ""}, {prop: "Infancy", name: "Infancy", pkg: "", typ: Infancy, tag: ""}, {prop: "Childhood", name: "Childhood", pkg: "", typ: Childhood, tag: ""}]);
 	Childhood.init([{prop: "Activity", name: "Activity", pkg: "", typ: $String, tag: ""}, {prop: "Location", name: "Location", pkg: "", typ: $String, tag: ""}]);
-	Infancy.init([{prop: "Carer", name: "Carer", pkg: "", typ: $String, tag: ""}, {prop: "Location", name: "Location", pkg: "", typ: $String, tag: ""}]);
+	Infancy.init([{prop: "Carer", name: "Carer", pkg: "", typ: $String, tag: ""}, {prop: "Location", name: "Location", pkg: "", typ: $String, tag: ""}, {prop: "Deity", name: "Deity", pkg: "", typ: $String, tag: ""}]);
 	Parent.init([{prop: "Name", name: "Name", pkg: "", typ: $String, tag: ""}, {prop: "Surname", name: "Surname", pkg: "", typ: $String, tag: ""}, {prop: "Race", name: "Race", pkg: "", typ: Race, tag: ""}, {prop: "Occupation", name: "Occupation", pkg: "", typ: $String, tag: ""}, {prop: "Nationality", name: "Nationality", pkg: "", typ: $String, tag: ""}]);
-	Race.init([{prop: "Name", name: "Name", pkg: "", typ: $String, tag: ""}, {prop: "Mix1", name: "Mix1", pkg: "", typ: $String, tag: ""}, {prop: "Mix2", name: "Mix2", pkg: "", typ: $String, tag: ""}]);
+	Race.init([{prop: "Name", name: "Name", pkg: "", typ: $String, tag: ""}, {prop: "Mix1", name: "Mix1", pkg: "", typ: $String, tag: ""}, {prop: "Mix2", name: "Mix2", pkg: "", typ: $String, tag: ""}, {prop: "Stats", name: "Stats", pkg: "", typ: Stats, tag: ""}]);
 	Stats.init([{prop: "Strength", name: "Strength", pkg: "", typ: $Int, tag: ""}, {prop: "Dexterity", name: "Dexterity", pkg: "", typ: $Int, tag: ""}, {prop: "Constitution", name: "Constitution", pkg: "", typ: $Int, tag: ""}, {prop: "Wisdom", name: "Wisdom", pkg: "", typ: $Int, tag: ""}, {prop: "Intelligence", name: "Intelligence", pkg: "", typ: $Int, tag: ""}, {prop: "Charisma", name: "Charisma", pkg: "", typ: $Int, tag: ""}]);
 	$init = function() {
 		$pkg.$init = function() {};
@@ -21374,6 +21424,7 @@ $packages["gen/types"] = (function() {
 		$r = fmt.$init(); /* */ $s = 1; case 1: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		$r = rand.$init(); /* */ $s = 2; case 2: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		races = sliceType.nil;
+		$pkg.Gods = new sliceType$1(["No god", "Abadar, God of Cities, Wealth, Merchants and Law", "Calistria, God of Trickery, Lust and Revenge", "Cayden Cailean, God of Freedom, Ale, Wine and Bravery", "Daikitsu, God of Agriculture, craftsmanship, kitsune and rice", "Desna, God of Dreams, Stars, Travelers and Luck", "Erastil, God of Farming, Hunting, Trade and Family", "General Susumu, God of Archery, Horses, Personal glory and War", "Gorum, God of Strength, Battle and Weapons", "Gozreh, God of Nature, Weather and The sea", "Hei Feng, God of Sea, Storms, Thunder and Wind", "Iomedae, God of Valor, Rulership, Justice and Honor", "Irori, God of History, Knowledge and Self-perfection", "Kofusachi, God of Abundance, Discovery, Happiness and Prosperity", "Lady Nanyo, God of Earthquakes, Fire, Plague and Suffering", "Lao Shu Po, God of Night, Rats and Thieves", "Nalinivati, God of Fertility, Nagaji, Snakes and Sorcery", "Nethys and God of Magic", "Pharasma, God of Fate, Death, Prophecy and Rebirth", "Qi Zhong, God of Healing, Magic and Medicine", "Sarenrae, God of Sun, Redemption, Honesty and Healing", "Shelyn, God of Beauty, art, love and music", "Shizuru, God of Ancestors, Honor, the Sun and Swordplay", "Sun Wukong, God of Drunkenness, Nature and Trickery", "Torag, God of Forge, protection and strategy", "Tsukiyo, God of Jade, the Moon and Spirits", "Yamatsumi, God of Mountains, Volcanoes and Winter"]);
 		$pkg.FemaleHumanNames = new sliceType$1(["Christy", "Brandi", "Janice", "Alicia", "Jennifer", "Alma", "Yvonne", "Rose", "Della", "Gwendolyn", "Hazel", "Natalie", "Antonia", "Beulah", "Ann", "Marion", "Yvette", "Gail", "Eileen", "Molly", "Sabrina", "Deanna", "Jeanette", "Dawn", "Christina", "Tonya", "Dixie", "Sadie", "Jan", "Erin", "Velma", "May", "Barbara", "Bertha", "Rosie", "Desiree", "Marianne", "Casey", "Leah", "Monique", "Heidi", "Tricia", "Grace", "Krystal", "Amanda", "Darla", "Ruby", "Lois", "Kathleen", "Doreen", "Angel", "Becky", "Myra", "Kara", "Jeannie", "Christine", "Vicki", "Doris", "Mable", "Beatrice", "Rhonda", "Ella", "Elisa", "Julia", "Kerry", "Kay", "Rosa", "Teresa", "Vera", "Janie", "Elvira", "Rachel", "Lisa", "Sandy", "Laurie", "Dorothy", "Iris", "Bernice", "Jaime", "Shirley", "Tamara", "Courtney", "Kim", "Rosalie", "Jessie", "Irma", "Raquel", "Alice", "Bonnie", "Sherry", "Gloria", "Eunice", "Marlene", "Sherri", "Melody", "Brooke", "Debbie", "Shari", "Sandra", "Tina"]);
 		$pkg.MaleHumanNames = new sliceType$1(["Alberto", "Alexander", "Alfonso", "Allan", "Allen", "Angelo", "Antonio", "Archie", "Arnold", "Ben", "Billy", "Blake", "Bobby", "Brad", "Bradley", "Brendan", "Calvin", "Carl", "Charles", "Clyde", "Dana", "Darnell", "Darrell", "Darren", "Daryl", "Derek", "Derrick", "Dewey", "Don", "Dwayne", "Dwight", "Edward", "Elbert", "Ellis", "Eric", "Erick", "Evan", "Felipe", "Fredrick", "Garry", "Gary", "Gregg", "Guadalupe", "Howard", "Hugo", "James", "Jamie", "Jan", "Jerald", "Jesus", "Jimmie", "Joseph", "Julius", "Kenneth", "Kenny", "Leland", "Leonard", "Leslie", "Lester", "Lionel", "Lloyd", "Lucas", "Marc", "Marco", "Marvin", "Matt", "Matthew", "Melvin", "Micheal", "Miguel", "Oliver", "Orlando", "Oscar", "Otis", "Preston", "Rafael", "Raul", "Richard", "Roosevelt", "Russell", "Salvador", "Samuel", "Shaun", "Sheldon", "Steven", "Stewart", "Sylvester", "Taylor", "Timmy", "Todd", "Tracy", "Trevor", "Troy", "Victor", "Virgil", "Walter", "Warren", "Wesley", "Willard"]);
 		$pkg.HumanSurnames = new sliceType$1(["Adkins", "Allison", "Alvarado", "Anderson", "Andrews", "Armstrong", "Arnold", "Austin", "Barnes", "Barnett", "Bass", "Blair", "Blake", "Boone", "Bowen", "Bowman", "Briggs", "Burgess", "Campbell", "Cannon", "Chavez", "Christensen", "Clark", "Colon", "Copeland", "Crawford", "Curry", "Curtis", "Dawson", "Day", "Dean", "Delgado", "Diaz", "Doyle", "Dunn", "Edwards", "Elliott", "Erickson", "Evans", "Ferguson", "Fernandez", "Figueroa", "Fletcher", "Flowers", "Floyd", "Ford", "Fox", "Francis", "Freeman", "French", "Gardner", "Garner", "Gibson", "Gill", "Gomez", "Gordon", "Graves", "Gray", "Greer", "Gregory", "Guzman", "Hammond", "Hampton", "Hardy", "Harmon", "Hines", "Hoffman", "Holt", "Horton", "Houston", "Hudson", "Hughes", "Hunt", "Hunter", "Ingram", "Jackson", "Jacobs", "Jenkins", "Johnson", "Johnston", "Joseph", "Keller", "Kelly", "Kennedy", "King", "Klein", "Knight", "Lane", "Lawrence", "Lawson", "Lindsey", "Little", "Lloyd", "Long", "Love", "Lowe", "Maldonado", "Marshall", "Martin", "Mcbride", "Mcdaniel", "Mcdonald", "Mckinney", "Mendez", "Meyer", "Miller", "Moore", "Moran", "Morton", "Moss", "Murphy", "Murray", "Myers", "Neal", "Nelson", "Newman", "Newton", "Norris", "Norton", "Nunez", "Olson", "Palmer", "Parks", "Patton", "Paul", "Payne", "Pearson", "Perkins", "Phillips", "Pierce", "Pittman", "Porter", "Powell", "Ramirez", "Ramsey", "Reid", "Reynolds", "Rhodes", "Richards", "Rios", "Rivera", "Roberson", "Robertson", "Rodriquez", "Rogers", "Romero", "Rose", "Roy", "Sanchez", "Schneider", "Schwartz", "Sharp", "Sherman", "Silva", "Sparks", "Spencer", "Stanley", "Summers", "Tate", "Terry", "Thomas", "Thornton", "Todd", "Tucker", "Valdez", "Vasquez", "Walker", "Washington", "Watson", "Weber", "Webster", "Welch", "Wilkerson", "Wilkins", "Williams", "Williamson", "Wilson", "Wise", "Wolfe", "Woods", "Wright", "Young", "Zimmerman"]);
@@ -21393,7 +21444,7 @@ $packages["gen/types"] = (function() {
 		$pkg.MaleHalflingNames = new sliceType$1(["Joorin", "Lindak", "Wenkin", "Davemin", "Wilemin", "Neorin", "Erumo", "Ricser", "Zenver", "Urigin"]);
 		$pkg.FemaleHalflingNames = new sliceType$1(["Froelle", "Eliula", "Lerana", "Eilyse", "Chenree", "Gragwen", "Odini", "Leprys", "Zefda", "Graleigh"]);
 		$pkg.Nationalities = new sliceType$1(["Alkenstar", "Geb", "Jalmeray", "Katapesh", "The Mwangi Expanse", "Nex", "Osirion", "The Shackles", "The Sodden Lands", "Thuvia", "Absalom", "Andoran", "Cheliax", "Galt", "Hermea", "The Hold of Belkzen", "The Lands of the Linnorm Kings", "Mendev", "Qadira", "The Realm of the Mammoth Lords", "The River Kingdoms", "Taldor", "Thassilon", "Ustalav", "Varisia", "The Worldwound"]);
-		$pkg.Occupations = new sliceType$1(["Priest(ess)", "Artist", "Mercenary", "Farmer", "Criminal", "Entertainer", "Rebel", "Bounty Hunter", "Merchant", "Noble", "Scholar", "Sailor", "Pirate", "Slave", "Soldier", "Mercenary", "Knight"]);
+		$pkg.Occupations = new sliceType$1(["Priest(ess)", "Artist", "Mercenary", "Farmer", "Criminal", "Entertainer", "Rebel", "Bounty Hunter", "Merchant", "Noble", "Scholar", "Sailor", "Pirate", "Slave", "Soldier", "Mercenary", "Knight", "Tailor", "Spy", "Servant", "Mage"]);
 		/* */ } return; } if ($f === undefined) { $f = { $blk: $init }; } $f.$s = $s; $f.$r = $r; return $f;
 	};
 	$pkg.$init = $init;
@@ -41092,7 +41143,7 @@ $packages["html/template"] = (function() {
 	return $pkg;
 })();
 $packages["gen/frontend"] = (function() {
-	var $pkg = {}, $init, bytes, types, dom, js, template, ioutil, rand, time, funcType, sliceType, sliceType$1, arrayType, arrayType$1, character, tmpl, _tuple, _r, _r$1, main, rerender, repickNationality, repickDad, repickMum, repickRace, runTemplate, log;
+	var $pkg = {}, $init, bytes, types, dom, js, template, ioutil, rand, time, funcType, sliceType, sliceType$1, arrayType, arrayType$1, character, tmpl, _tuple, _r, _r$1, main, rerender, repickNationality, repickDad, repickMum, repickDeity, repickChildhood, repickInfancy, repickRace, runTemplate, log;
 	bytes = $packages["bytes"];
 	types = $packages["gen/types"];
 	dom = $packages["github.com/dominikh/go-js-dom"];
@@ -41117,6 +41168,9 @@ $packages["gen/frontend"] = (function() {
 		$global.repickMum = $externalize(repickMum, funcType);
 		$global.repickDad = $externalize(repickDad, funcType);
 		$global.repickRace = $externalize(repickRace, funcType);
+		$global.repickInfancy = $externalize(repickInfancy, funcType);
+		$global.repickChildhood = $externalize(repickChildhood, funcType);
+		$global.repickDeity = $externalize(repickDeity, funcType);
 		$go(rerender, []);
 		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: main }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f.seed = seed; $f.$s = $s; $f.$r = $r; return $f;
 	};
@@ -41165,7 +41219,7 @@ $packages["gen/frontend"] = (function() {
 	repickDad = function() {
 		var $ptr, _r$2, $s, $r;
 		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r$2 = $f._r$2; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
-		types.Parent.copy(character.Father, new types.Parent.ptr("", "", new types.Race.ptr("", "", ""), "", ""));
+		types.Parent.copy(character.Father, new types.Parent.ptr("", "", new types.Race.ptr("", "", "", new types.Stats.ptr(0, 0, 0, 0, 0, 0)), "", ""));
 		character.SpentFatePoints = character.SpentFatePoints + (1) >> 0;
 		_r$2 = character.FillInTheBlanks(); /* */ $s = 1; case 1: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
 		types.Character.copy(character, _r$2);
@@ -41175,24 +41229,78 @@ $packages["gen/frontend"] = (function() {
 	repickMum = function() {
 		var $ptr, _r$2, $s, $r;
 		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r$2 = $f._r$2; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
-		types.Parent.copy(character.Mother, new types.Parent.ptr("", "", new types.Race.ptr("", "", ""), "", ""));
+		types.Parent.copy(character.Mother, new types.Parent.ptr("", "", new types.Race.ptr("", "", "", new types.Stats.ptr(0, 0, 0, 0, 0, 0)), "", ""));
 		character.SpentFatePoints = character.SpentFatePoints + (1) >> 0;
 		_r$2 = character.FillInTheBlanks(); /* */ $s = 1; case 1: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
 		types.Character.copy(character, _r$2);
 		$go(rerender, []);
 		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: repickMum }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f.$s = $s; $f.$r = $r; return $f;
 	};
+	repickDeity = function() {
+		var $ptr, _r$2, old, $s, $r;
+		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r$2 = $f._r$2; old = $f.old; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		old = character.Deity;
+		character.Deity = "";
+		_r$2 = character.FillInTheBlanks(); /* */ $s = 1; case 1: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
+		types.Character.copy(character, _r$2);
+		/* */ if (character.Deity === old) { $s = 2; continue; }
+		/* */ $s = 3; continue;
+		/* if (character.Deity === old) { */ case 2:
+			$r = repickDeity(); /* */ $s = 5; case 5: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+			$s = 4; continue;
+		/* } else { */ case 3:
+			character.SpentFatePoints = character.SpentFatePoints + (1) >> 0;
+			$go(rerender, []);
+		/* } */ case 4:
+		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: repickDeity }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f.old = old; $f.$s = $s; $f.$r = $r; return $f;
+	};
+	repickChildhood = function() {
+		var $ptr, _r$2, old, $s, $r;
+		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r$2 = $f._r$2; old = $f.old; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		old = $clone(character.Childhood, types.Childhood);
+		types.Childhood.copy(character.Childhood, new types.Childhood.ptr("", ""));
+		_r$2 = character.FillInTheBlanks(); /* */ $s = 1; case 1: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
+		types.Character.copy(character, _r$2);
+		/* */ if ($equal(character.Childhood, old, types.Childhood)) { $s = 2; continue; }
+		/* */ $s = 3; continue;
+		/* if ($equal(character.Childhood, old, types.Childhood)) { */ case 2:
+			$r = repickChildhood(); /* */ $s = 5; case 5: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+			$s = 4; continue;
+		/* } else { */ case 3:
+			character.SpentFatePoints = character.SpentFatePoints + (1) >> 0;
+			$go(rerender, []);
+		/* } */ case 4:
+		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: repickChildhood }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f.old = old; $f.$s = $s; $f.$r = $r; return $f;
+	};
+	repickInfancy = function() {
+		var $ptr, _r$2, oldInfancy, $s, $r;
+		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r$2 = $f._r$2; oldInfancy = $f.oldInfancy; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
+		oldInfancy = $clone(character.Infancy, types.Infancy);
+		types.Infancy.copy(character.Infancy, new types.Infancy.ptr("", "", ""));
+		_r$2 = character.FillInTheBlanks(); /* */ $s = 1; case 1: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
+		types.Character.copy(character, _r$2);
+		/* */ if ($equal(character.Infancy, oldInfancy, types.Infancy)) { $s = 2; continue; }
+		/* */ $s = 3; continue;
+		/* if ($equal(character.Infancy, oldInfancy, types.Infancy)) { */ case 2:
+			$r = repickInfancy(); /* */ $s = 5; case 5: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+			$s = 4; continue;
+		/* } else { */ case 3:
+			character.SpentFatePoints = character.SpentFatePoints + (1) >> 0;
+			$go(rerender, []);
+		/* } */ case 4:
+		/* */ $s = -1; case -1: } return; } if ($f === undefined) { $f = { $blk: repickInfancy }; } $f.$ptr = $ptr; $f._r$2 = _r$2; $f.oldInfancy = oldInfancy; $f.$s = $s; $f.$r = $r; return $f;
+	};
 	repickRace = function() {
 		var $ptr, _r$2, oldRace, $s, $r;
 		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $ptr = $f.$ptr; _r$2 = $f._r$2; oldRace = $f.oldRace; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
 		oldRace = character.Race.Name;
-		types.Race.copy(character.Race, new types.Race.ptr("", "", ""));
+		types.Race.copy(character.Race, new types.Race.ptr("", "", "", new types.Stats.ptr(0, 0, 0, 0, 0, 0)));
 		character.Name = "";
 		character.Surname = "";
-		types.Race.copy(character.Mother.Race, new types.Race.ptr("", "", ""));
+		types.Race.copy(character.Mother.Race, new types.Race.ptr("", "", "", new types.Stats.ptr(0, 0, 0, 0, 0, 0)));
 		character.Mother.Name = "";
 		character.Mother.Surname = "";
-		types.Race.copy(character.Father.Race, new types.Race.ptr("", "", ""));
+		types.Race.copy(character.Father.Race, new types.Race.ptr("", "", "", new types.Stats.ptr(0, 0, 0, 0, 0, 0)));
 		character.Father.Name = "";
 		character.Father.Surname = "";
 		_r$2 = character.FillInTheBlanks(); /* */ $s = 1; case 1: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
@@ -41243,8 +41351,8 @@ $packages["gen/frontend"] = (function() {
 		$r = ioutil.$init(); /* */ $s = 6; case 6: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		$r = rand.$init(); /* */ $s = 7; case 7: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		$r = time.$init(); /* */ $s = 8; case 8: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
-		character = new types.Character.ptr("", "", new types.Race.ptr("", "", ""), "", "", new types.Parent.ptr("", "", new types.Race.ptr("", "", ""), "", ""), new types.Parent.ptr("", "", new types.Race.ptr("", "", ""), "", ""), new types.Stats.ptr(0, 0, 0, 0, 0, 0), 0, new types.Infancy.ptr("", ""), new types.Childhood.ptr("", ""));
-		_r = template.New("main").Parse("\n<p>{{.Name}} {{.Surname}}, a {{.Sex}} {{.Race.Name}} (<a href=\"#\" onclick=\"repickRace()\">Repick Race</a>) from {{.Nationality}} (<a href=\"#\" onclick=\"repickNationality()\">Repick Nationality</a>)</p>\n<p>Father: {{.Father}} <a href=\"#\" onclick=\"repickDad()\">Repick Dad</a></p>\n<p>Mother: {{.Mother}} <a href=\"#\" onclick=\"repickMum()\">Repick Mum</a></p>\n<p>\nAfter your birth, you were cared for by {{.Infancy.Carer}} {{.Infancy.Location}}.\n</p>\n<p>\nAs you grew older you spent lots of time {{ .Childhood.Activity }} {{.Childhood.Location}}.\n</p>\n<p>\nStat rolls:\n<ul>\n  <li>Strength: {{.Stats.Strength}}</li>\n  <li>Dexterity: {{.Stats.Dexterity}}</li>\n  <li>Constitution: {{.Stats.Constitution}}</li>\n  <li>Wisdom: {{.Stats.Wisdom}}</li>\n  <li>Intelligence: {{.Stats.Intelligence}}</li>\n  <li>Charisma: {{.Stats.Charisma}}</li>\n</ul>\n</p>\n<p>\nYou have {{.Stats.BaseFatePoints}} fate points to spend.<br/>\nYou have spent {{ .SpentFatePoints }} of them.\n</p>\n"); /* */ $s = 9; case 9: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
+		character = new types.Character.ptr("", "", new types.Race.ptr("", "", "", new types.Stats.ptr(0, 0, 0, 0, 0, 0)), "", "", "", new types.Parent.ptr("", "", new types.Race.ptr("", "", "", new types.Stats.ptr(0, 0, 0, 0, 0, 0)), "", ""), new types.Parent.ptr("", "", new types.Race.ptr("", "", "", new types.Stats.ptr(0, 0, 0, 0, 0, 0)), "", ""), new types.Stats.ptr(0, 0, 0, 0, 0, 0), 0, new types.Infancy.ptr("", "", ""), new types.Childhood.ptr("", ""));
+		_r = template.New("main").Parse("\n<p>\n\t{{.Name}} {{.Surname}}, \n\ta {{.Sex}} {{.Race.Name}} \n\t(<a href=\"#\" onclick=\"repickRace()\">Repick Race</a>) \n\tfrom {{.Nationality}} \n\t(<a href=\"#\" onclick=\"repickNationality()\">Repick Nationality</a>)\n</p>\n<p>\n\t<a href=\"#\" onclick=\"repickDad()\">Repick Dad</a>\n\tFather: {{.Father}}\n</p>\n<p>\n\t<a href=\"#\" onclick=\"repickMum()\">Repick Mum</a>\n\tMother: {{.Mother}}</p>\n<p>\n<a href=\"#\" onclick=\"repickInfancy()\">Repick Infancy</a> \nAfter your birth, you were cared for by {{.Infancy}}.\n</p>\n<p>\n<a href=\"#\" onclick=\"repickChildhood()\">Repick Childhood</a> \nAs you grew older you spent lots of time {{ .Childhood.Activity }} {{.Childhood.Location}}.\n</p>\n<p>\n<a href=\"#\" onclick=\"repickDeity()\">Repick Deity</a>\nYou have come to the service of {{ .Deity }}. \n</p>\n<p>\nStat rolls:\n<ul>\n  <li>Strength: {{.Stats.Strength}}</li>\n  <li>Dexterity: {{.Stats.Dexterity}}</li>\n  <li>Constitution: {{.Stats.Constitution}}</li>\n  <li>Wisdom: {{.Stats.Wisdom}}</li>\n  <li>Intelligence: {{.Stats.Intelligence}}</li>\n  <li>Charisma: {{.Stats.Charisma}}</li>\n</ul>\n</p>\n<p>\nYou have {{.Stats.BaseFatePoints}} fate points to spend.<br/>\nYou have spent {{ .SpentFatePoints }} of them.\n</p>\n"); /* */ $s = 9; case 9: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
 		_tuple = _r;
 		_r$1 = template.Must(_tuple[0], _tuple[1]); /* */ $s = 10; case 10: if($c) { $c = false; _r$1 = _r$1.$blk(); } if (_r$1 && _r$1.$blk !== undefined) { break s; }
 		tmpl = _r$1;
