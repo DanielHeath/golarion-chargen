@@ -18,6 +18,10 @@ var Occupations = []string{
 	"Soldier",
 	"Mercenary",
 	"Knight",
+	"Tailor",
+	"Spy",
+	"Servant",
+	"Mage",
 }
 
 // Wealth level

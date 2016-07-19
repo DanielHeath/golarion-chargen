@@ -1,13 +1,23 @@
 package types
 
+import "fmt"
+
 // What were your first years like
 type Infancy struct {
 	Carer    string
 	Location string
+	Deity    string
+}
+
+func (s Infancy) String() string {
+	if s.Deity != "" {
+		return fmt.Sprintf("%s %s %s", s.Carer, s.Deity, s.Location)
+	}
+	return fmt.Sprintf("%s %s", s.Carer, s.Location)
 }
 
 // FillInTheBlanks sets all unset properties to valid values
-func (s Infancy) FillInTheBlanks() Infancy {
+func (s Infancy) FillInTheBlanks(deity string) Infancy {
 	if s.Carer == "" {
 		s.Carer = SampleStr(
 			"your mum",
@@ -18,8 +28,24 @@ func (s Infancy) FillInTheBlanks() Infancy {
 			"your dad",
 			"your dad",
 			"your loving foster parents",
-			"the clergy of {god}",
+			"the clergy of",
 		)
+		if s.Carer == "the clergy of" {
+			if deity == "" {
+				deity = SampleStr(Gods...)
+			}
+
+			s.Deity = SampleStr(
+				deity,
+				deity,
+				deity,
+				deity,
+				deity,
+				deity,
+				deity,
+				SampleStr(Gods...),
+			)
+		}
 	}
 
 	if s.Location == "" {

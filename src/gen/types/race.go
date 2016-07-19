@@ -8,8 +8,13 @@ func RandomRace() Race {
 
 type Race struct {
 	Name string
+
+	// For half-breeds
 	Mix1 string
 	Mix2 string
+
+	// Adjustments to stats
+	Stats Stats
 }
 
 func (r Race) MarshalText() (text []byte, err error) {
@@ -55,14 +60,14 @@ func TryGetRace(name string) Race {
 func Races() []Race {
 	if len(races) == 0 {
 		races = []Race{
-			Race{Name: "Human"},
-			Race{Name: "Dwarf"},
-			Race{Name: "Elf"},
-			Race{Name: "Orc"},
-			Race{Name: "Halfling"},
-			Race{Name: "Gnome"},
-			Race{Name: "Half-elf", Mix1: "Elf", Mix2: "Human"},
-			Race{Name: "Half-orc", Mix1: "Orc", Mix2: "Human"},
+			Race{Name: "Human"},                                // +2 to a stat of your choice
+			Race{Name: "Half-elf", Mix1: "Elf", Mix2: "Human"}, // +2 to a stat of your choice
+			Race{Name: "Half-orc", Mix1: "Orc", Mix2: "Human"}, // +2 to a stat of your choice
+			Race{Name: "Dwarf", Stats: Stats{Constitution: 2, Wisdom: 2, Charisma: -2}},
+			Race{Name: "Elf", Stats: Stats{Constitution: -2, Intelligence: 2, Dexterity: 2}},
+			Race{Name: "Orc", Stats: Stats{Strength: 4, Intelligence: -2, Wisdom: -2, Charisma: -2}},
+			Race{Name: "Halfling", Stats: Stats{Strength: -2, Dexterity: 2, Charisma: 2}},
+			Race{Name: "Gnome", Stats: Stats{Constitution: 2, Strength: -2, Charisma: 2}},
 		}
 	}
 

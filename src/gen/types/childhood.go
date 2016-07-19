@@ -8,12 +8,14 @@ type Childhood struct {
 func (c Childhood) FillInTheBlanks() Childhood {
 	if c.Activity == "" {
 		c.Activity = SampleStr(
-			"playing silly buggers",
+			"[fixme] playing silly buggers",
+			"[fixme] prancing",
 		)
 	}
 	if c.Location == "" {
 		c.Location = SampleStr(
 			"on the castle walls",
+			"in the forest",
 		)
 	}
 	return c

@@ -23,6 +23,10 @@ func main() {
 	js.Global.Set("repickMum", repickMum)
 	js.Global.Set("repickDad", repickDad)
 	js.Global.Set("repickRace", repickRace)
+	js.Global.Set("repickInfancy", repickInfancy)
+	js.Global.Set("repickChildhood", repickChildhood)
+	js.Global.Set("repickDeity", repickDeity)
+
 	go rerender()
 }
 
@@ -65,6 +69,42 @@ func repickMum() {
 	go rerender()
 }
 
+func repickDeity() {
+	old := character.Deity
+	character.Deity = ""
+	character = character.FillInTheBlanks()
+	if character.Deity == old {
+		repickDeity()
+	} else {
+		character.SpentFatePoints++
+		go rerender()
+	}
+}
+
+func repickChildhood() {
+	old := character.Childhood
+	character.Childhood = types.Childhood{}
+	character = character.FillInTheBlanks()
+	if character.Childhood == old {
+		repickChildhood()
+	} else {
+		character.SpentFatePoints++
+		go rerender()
+	}
+}
+
+func repickInfancy() {
+	oldInfancy := character.Infancy
+	character.Infancy = types.Infancy{}
+	character = character.FillInTheBlanks()
+	if character.Infancy == oldInfancy {
+		repickInfancy()
+	} else {
+		character.SpentFatePoints++
+		go rerender()
+	}
+}
+
 func repickRace() {
 	oldRace := character.Race.Name
 	character.Race = types.Race{}
@@ -86,14 +126,31 @@ func repickRace() {
 }
 
 const htmlTemplate = `
-<p>{{.Name}} {{.Surname}}, a {{.Sex}} {{.Race.Name}} (<a href="#" onclick="repickRace()">Repick Race</a>) from {{.Nationality}} (<a href="#" onclick="repickNationality()">Repick Nationality</a>)</p>
-<p>Father: {{.Father}} <a href="#" onclick="repickDad()">Repick Dad</a></p>
-<p>Mother: {{.Mother}} <a href="#" onclick="repickMum()">Repick Mum</a></p>
 <p>
-After your birth, you were cared for by {{.Infancy.Carer}} {{.Infancy.Location}}.
+	{{.Name}} {{.Surname}}, 
+	a {{.Sex}} {{.Race.Name}} 
+	(<a href="#" onclick="repickRace()">Repick Race</a>) 
+	from {{.Nationality}} 
+	(<a href="#" onclick="repickNationality()">Repick Nationality</a>)
 </p>
 <p>
+	<a href="#" onclick="repickDad()">Repick Dad</a>
+	Father: {{.Father}}
+</p>
+<p>
+	<a href="#" onclick="repickMum()">Repick Mum</a>
+	Mother: {{.Mother}}</p>
+<p>
+<a href="#" onclick="repickInfancy()">Repick Infancy</a> 
+After your birth, you were cared for by {{.Infancy}}.
+</p>
+<p>
+<a href="#" onclick="repickChildhood()">Repick Childhood</a> 
 As you grew older you spent lots of time {{ .Childhood.Activity }} {{.Childhood.Location}}.
+</p>
+<p>
+<a href="#" onclick="repickDeity()">Repick Deity</a>
+You have come to the service of {{ .Deity }}. 
 </p>
 <p>
 Stat rolls:

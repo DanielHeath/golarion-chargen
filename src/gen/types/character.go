@@ -12,6 +12,7 @@ type Character struct {
 	Race            Race
 	Sex             string
 	Nationality     string
+	Deity           string
 	Mother          Parent
 	Father          Parent
 	Stats           Stats
@@ -77,6 +78,10 @@ func (c Character) FillInTheBlanks() Character {
 		)
 	}
 
+	if c.Deity == "" {
+		c.Deity = SampleStr(Gods...)
+	}
+
 	if c.Nationality == "" {
 		c.Nationality = SampleStr(
 			c.Father.Nationality,
@@ -88,9 +93,11 @@ func (c Character) FillInTheBlanks() Character {
 			SampleStr(Nationalities...),
 		)
 	}
+
 	c.Stats = c.Stats.FillInTheBlanks()
-	c.Infancy = c.Infancy.FillInTheBlanks()
+	c.Infancy = c.Infancy.FillInTheBlanks(c.Deity)
 	c.Childhood = c.Childhood.FillInTheBlanks()
+
 	return c
 }
 
